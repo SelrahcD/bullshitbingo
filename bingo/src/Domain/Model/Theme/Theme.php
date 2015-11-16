@@ -1,6 +1,5 @@
 <?php
-
-namespace BullshitBingo\Bingo\Domain;
+namespace BullshitBingo\Bingo\Domain\Model\Theme;
 
 class Theme
 {

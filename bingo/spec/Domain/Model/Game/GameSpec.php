@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\BullshitBingo\Bingo\Domain;
+namespace spec\BullshitBingo\Bingo\Domain\Model\Game;
 
-use BullshitBingo\Bingo\Domain\GameHasBeenCreated;
-use BullshitBingo\Bingo\Domain\GameId;
-use BullshitBingo\Bingo\Domain\Player;
-use BullshitBingo\Bingo\Domain\PlayerJoinedTheGame;
-use BullshitBingo\Bingo\Domain\Theme;
+use BullshitBingo\Bingo\Domain\Model\Game\GameHasBeenCreated;
+use BullshitBingo\Bingo\Domain\Model\Game\GameId;
+use BullshitBingo\Bingo\Domain\Model\Game\PlayerJoinedTheGame;
+use BullshitBingo\Bingo\Domain\Model\Player\Player;
+use BullshitBingo\Bingo\Domain\Model\Theme\Theme;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -16,7 +16,7 @@ class GameSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('BullshitBingo\Bingo\Domain\Game');
+        $this->shouldHaveType('BullshitBingo\Bingo\Domain\Model\Game\Game');
     }
 
     function let(Theme $theme)

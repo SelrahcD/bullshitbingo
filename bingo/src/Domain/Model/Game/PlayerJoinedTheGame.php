@@ -1,6 +1,6 @@
 <?php
 
-namespace BullshitBingo\Bingo\Domain;
+namespace BullshitBingo\Bingo\Domain\Model\Game;
 
 class PlayerJoinedTheGame
 {

@@ -1,6 +1,8 @@
 <?php
+namespace BullshitBingo\Bingo\Domain\Model\Game;
 
-namespace BullshitBingo\Bingo\Domain;
+use BullshitBingo\Bingo\Domain\Model\Player\Player;
+use BullshitBingo\Bingo\Domain\Model\Theme\Theme;
 
 /**
  * Class Game

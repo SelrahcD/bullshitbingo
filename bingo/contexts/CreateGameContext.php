@@ -7,12 +7,13 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use BullshitBingo\Bingo\Domain\Game;
-use BullshitBingo\Bingo\Domain\GameHasBeenCreated;
-use BullshitBingo\Bingo\Domain\GameId;
-use BullshitBingo\Bingo\Domain\Player;
-use BullshitBingo\Bingo\Domain\PlayerJoinedTheGame;
-use BullshitBingo\Bingo\Domain\Theme;
+use BullshitBingo\Bingo\Domain\Model\Game\Game;
+use BullshitBingo\Bingo\Domain\Model\Game\GameHasBeenCreated;
+use BullshitBingo\Bingo\Domain\Model\Game\GameId;
+use BullshitBingo\Bingo\Domain\Model\Game\PlayerJoinedTheGame;
+use BullshitBingo\Bingo\Domain\Model\Player\Player;
+use BullshitBingo\Bingo\Domain\Model\Theme\Theme;
+
 
 /**
  * Defines application features from the specific context.

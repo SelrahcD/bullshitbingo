@@ -1,9 +1,8 @@
 <?php
 
-namespace spec\BullshitBingo\Bingo\Domain;
+namespace spec\BullshitBingo\Bingo\Domain\Model\Game;
 
-use BullshitBingo\Bingo\Domain\Game;
-use BullshitBingo\Bingo\Domain\GameId;
+use BullshitBingo\Bingo\Domain\Model\Game\GameId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -11,7 +10,7 @@ class GameIdSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('BullshitBingo\Bingo\Domain\GameId');
+        $this->shouldHaveType('BullshitBingo\Bingo\Domain\Model\Game\GameId');
     }
 
     function let()
