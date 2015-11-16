@@ -24,20 +24,33 @@ class Game
      */
     private $players = [];
 
-    private function __construct(GameId $gameId)
+    /**
+     * @var GameState
+     */
+    private $state;
+
+    /**
+     * @var Player
+     */
+    private $creator;
+
+    private function __construct(GameId $gameId, Player $creator)
     {
         $this->id = $gameId;
+        $this->creator = $creator;
+        $this->state = new GameState();
         $this->storeEvent(new GameHasBeenCreated());
     }
 
     /**
      * @param GameId $gameId
+     * @param Player $creator
      * @param Theme $theme
      * @return Game
      */
-    public static function createUsingTheme(GameId $gameId, Theme $theme)
+    public static function createUsingTheme(GameId $gameId, Player $creator, Theme $theme)
     {
-        return new Game($gameId);
+        return new Game($gameId, $creator);
     }
 
     public function releaseEvents()
@@ -47,7 +60,7 @@ class Game
 
     public function isOpened()
     {
-        return true;
+        return $this->state->isOpened();
     }
 
     public function accept(Player $player)
@@ -71,5 +84,18 @@ class Game
     public function playerCount()
     {
         return count($this->players);
+    }
+
+    public function startByUser(Player $player)
+    {
+        if($player === $this->creator) {
+            $this->state = $this->state->transitionToStarted();
+            $this->storeEvent(new GameIsStarted($this->id));
+        }
+    }
+
+    public function isStarted()
+    {
+        return $this->state->isStarted();
     }
 }

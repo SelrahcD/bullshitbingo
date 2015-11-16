@@ -10,6 +10,7 @@ use Behat\Gherkin\Node\TableNode;
 use BullshitBingo\Bingo\Domain\Model\Game\Game;
 use BullshitBingo\Bingo\Domain\Model\Game\GameHasBeenCreated;
 use BullshitBingo\Bingo\Domain\Model\Game\GameId;
+use BullshitBingo\Bingo\Domain\Model\Game\GameIsStarted;
 use BullshitBingo\Bingo\Domain\Model\Game\PlayerJoinedTheGame;
 use BullshitBingo\Bingo\Domain\Model\Player\Player;
 use BullshitBingo\Bingo\Domain\Model\Theme\Theme;
@@ -66,11 +67,12 @@ class CreateGameContext implements Context, SnippetAcceptingContext
     /**
      * @When I create a game using the theme :theme
      * @Given that a game using the theme :theme was created
+     * @Given that I created a game using the theme :theme
      */
     public function iCreateAGameUsingTheTheme($theme)
     {
         $this->gameId = GameId::generate();
-        $this->game = Game::createUsingTheme($this->gameId, $theme);
+        $this->game = $this->player->createAGameUsingTheme($this->gameId, $theme);
     }
 
     /**
@@ -120,5 +122,28 @@ class CreateGameContext implements Context, SnippetAcceptingContext
     public function thatGameSPlayerCountIs($playersCount)
     {
         \PHPUnit_Framework_Assert::equalTo($playersCount, $this->game->playerCount());
+    }
+
+    /**
+     * @When I start the game
+     */
+    public function iStartTheGame()
+    {
+        $this->player->startGame($this->game);
+    }
+
+    /**
+     * @Then I should be notified that the game is started
+     */
+    public function iShouldBeNotifiedThatTheGameIsStarted()
+    {
+        $events = $this->game->releaseEvents();
+
+        \PHPUnit_Framework_Assert::assertNotFalse(
+            array_search(
+                new GameIsStarted($this->gameId),
+                $events
+            )
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace spec\BullshitBingo\Bingo\Domain\Model\Game;
 
 use BullshitBingo\Bingo\Domain\Model\Game\GameHasBeenCreated;
 use BullshitBingo\Bingo\Domain\Model\Game\GameId;
+use BullshitBingo\Bingo\Domain\Model\Game\GameIsStarted;
 use BullshitBingo\Bingo\Domain\Model\Game\PlayerJoinedTheGame;
 use BullshitBingo\Bingo\Domain\Model\Player\Player;
 use BullshitBingo\Bingo\Domain\Model\Theme\Theme;
@@ -19,10 +20,10 @@ class GameSpec extends ObjectBehavior
         $this->shouldHaveType('BullshitBingo\Bingo\Domain\Model\Game\Game');
     }
 
-    function let(Theme $theme)
+    function let(Theme $theme, Player $creator)
     {
         $this->gameId = GameId::generate();
-        $this->beConstructedThrough('createUsingTheme', [$this->gameId, $theme]);
+        $this->beConstructedThrough('createUsingTheme', [$this->gameId, $creator, $theme]);
     }
     
     function it_should_release_GameHasBeenCreated_event_when_created()
@@ -81,6 +82,29 @@ class GameSpec extends ObjectBehavior
         $this->releaseEvents()->shouldReturn([]);
     }
 
+    function it_can_be_started_by_the_player_who_created_it(Player $creator)
+    {
+        $this->startByUser($creator);
+        $this->isStarted()->shouldReturn(true);
+    }
+    
+    function it_should_not_be_started_by_an_other_player_than_the_creator(Player $someOtherPlayer)
+    {
+        $this->startByUser($someOtherPlayer);
+        $this->isStarted()->shouldReturn(false);
+    }
+    
+    function it_should_publish_a_GameIsStarted_event_when_started_by_the_creator(Player $creator)
+    {
+        $this->startByUser($creator);
+        $this->releaseEvents()->shouldContainSomethingLike(new GameIsStarted($this->gameId));
+    }
+
+    function it_should_not_publish_a_GameIsStarted_event_when_someone_else_than_the_creator_try_to_start_the_game(Player $someOtherPlayer)
+    {
+        $this->startByUser($someOtherPlayer);
+        $this->releaseEvents()->shouldNotContainSomethingLike(new GameIsStarted($this->gameId));
+    }
     public function getMatchers()
     {
         return [
