@@ -1,0 +1,7 @@
+formatter.name: pretty
+suites:
+    bingo:
+        namespace: BullshitBingo\Bingo
+        psr4_prefix: BullshitBingo\Bingo
+        spec_path: bingo
+        src_path: bingo/src

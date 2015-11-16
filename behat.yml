@@ -1,0 +1,7 @@
+default:
+    suites:
+        bingo:
+            filters:
+                tags: @bingo
+            contexts:
+                - BullshitBingo\Bingo\Features\Contexts\CreateGameContext

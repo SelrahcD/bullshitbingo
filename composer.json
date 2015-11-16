@@ -1,0 +1,19 @@
+{
+  "require-dev": {
+    "behat/behat": "~3.0",
+    "phpspec/phpspec": "~2.3",
+    "phpunit/phpunit": "~5.0"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BullshitBingo\\Bingo\\" : "bingo/src/",
+      "BullshitBingo\\Bingo\\Features\\Contexts\\": "bingo/contexts/"
+    }
+  },
+  "require": {
+    "ramsey/uuid": "~3.0"
+  }
+}
